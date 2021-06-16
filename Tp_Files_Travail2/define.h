@@ -24,8 +24,6 @@ extern int getTailleFile(File* file);
 extern Element* getElementDebut(File* file);
 extern Element* getElementFin(File* file);
 
-extern void affiche(File* file);
-
 extern int destructFile(File* file);
 
 

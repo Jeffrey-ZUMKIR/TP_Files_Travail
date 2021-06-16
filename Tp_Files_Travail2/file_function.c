@@ -80,6 +80,7 @@ int supElement(File* file){
 
 }
 
+//Affiche les différentes images
 void afficheFile(File* file,SDL_Rect rectSource,SDL_Rect rectDest,SDL_Renderer* pRenderer){
     Element* courant;
     courant= file->p_debut;
@@ -118,10 +119,12 @@ void afficheFile(File* file,SDL_Rect rectSource,SDL_Rect rectDest,SDL_Renderer* 
     }
 }
 
+//Obtenir taille file
 int getTailleFile(File* file){
     return file->n_taille;
 }
 
+//Obtenir premier élément de la file
 Element* getElementDebut(File* file){
     Element* courant;
     courant=file->p_debut;
@@ -129,6 +132,7 @@ Element* getElementDebut(File* file){
     return courant;
 }
 
+//Obtenir dernier élément de la file
 Element* getElementFin(File* file){
     Element* courant;
     courant=file->p_fin;
@@ -136,13 +140,7 @@ Element* getElementFin(File* file){
     return courant;
 }
 
-
-void affiche(File* file){
-    printf("%d\n",file->n_taille);
-    printf("%d\n",file->p_debut);
-    printf("%d\n",file->p_fin);
-}
-
+//Détruire la file
 int destructFile(File* file){
     if(file->n_taille==0){
         return 0;

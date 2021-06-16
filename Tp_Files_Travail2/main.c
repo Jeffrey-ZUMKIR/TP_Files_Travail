@@ -41,35 +41,49 @@ int main(int argc, char *argv[])
     SDL_Rect rectSource={0,0,0,0};
     SDL_Rect rectDest={0,0,0,0};
 
-    if(pRenderer){
-        //Set Color
-        SDL_SetRenderDrawColor(pRenderer,205,92,92,SDL_ALPHA_OPAQUE);
-        //Clear Render
-        SDL_RenderClear(pRenderer);
+    SDL_Event events;
+    SDL_bool isOpen = SDL_TRUE;
 
-        File* file=init();
+     while (isOpen)
+    {
+         while (SDL_PollEvent(&events))
+        {
+            switch (events.type)
+            {
+            case SDL_QUIT:
+                isOpen = SDL_FALSE ;
+                break;
+            }
+        }
 
-        pSurface=IMG_Load("./assets/Cyberdrunk pnj.png");
+        if(pRenderer){
+            //Set Color
+            SDL_SetRenderDrawColor(pRenderer,205,92,92,SDL_ALPHA_OPAQUE);
+            //Clear Render
+            SDL_RenderClear(pRenderer);
 
-        if(insertFileVide(file,pSurface));
+            File* file=init();
 
-        pSurface=IMG_Load("./assets/Cyberdrunk pnj dwerk.png");
+            //Ajout image dans la liste
+            pSurface=IMG_Load("./assets/Cyberdrunk pnj.png");
+            if(insertFileVide(file,pSurface));
 
-        if(insertFile(file,file->p_fin,pSurface));
+            pSurface=IMG_Load("./assets/Cyberdrunk pnj dwerk.png");
+            if(insertFile(file,file->p_fin,pSurface));
 
-        pSurface=IMG_Load("./assets/Cyberdrunk pnj 5.png");
+            pSurface=IMG_Load("./assets/Cyberdrunk pnj 5.png");
+            if(insertFile(file,file->p_fin,pSurface));
 
-        if(insertFile(file,file->p_fin,pSurface));
+            //Affiche les images
+            afficheFile(file,rectSource,rectDest,pRenderer);
 
-        afficheFile(file,rectSource,rectDest,pRenderer);
 
-
-        //Update render
-        SDL_RenderPresent(pRenderer);
+            //Update render
+            SDL_RenderPresent(pRenderer);
+        }
     }
 
-
-    SDL_Delay(1000);
+    //SDL_Delay(1000);
     if(pRenderer){
         SDL_DestroyRenderer(pRenderer);
     }
@@ -78,6 +92,6 @@ int main(int argc, char *argv[])
     }
 
     SDL_Quit();
-    printf("Hello world!\n");
+
     return 0;
 }
