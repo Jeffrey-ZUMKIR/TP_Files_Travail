@@ -66,13 +66,16 @@ int main(int argc, char *argv[])
 
             //Ajout image dans la liste
             pSurface=IMG_Load("./assets/Cyberdrunk pnj.png");
-            if(insertFileVide(file,pSurface));
+            pTexture=SDL_CreateTextureFromSurface(pRenderer,pSurface);
+            if(insertFileVide(file,pTexture));
 
             pSurface=IMG_Load("./assets/Cyberdrunk pnj dwerk.png");
-            if(insertFile(file,file->p_fin,pSurface));
+            pTexture=SDL_CreateTextureFromSurface(pRenderer,pSurface);
+            if(insertFile(file,file->p_fin,pTexture));
 
             pSurface=IMG_Load("./assets/Cyberdrunk pnj 5.png");
-            if(insertFile(file,file->p_fin,pSurface));
+            pTexture=SDL_CreateTextureFromSurface(pRenderer,pSurface);
+            if(insertFile(file,file->p_fin,pTexture));
 
             //Affiche les images
             afficheFile(file,rectSource,rectDest,pRenderer);

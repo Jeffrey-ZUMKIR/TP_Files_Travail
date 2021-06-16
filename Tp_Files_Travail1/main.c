@@ -6,6 +6,7 @@ int main()
 {
     File* file=init();
 
+
     if(insertFileVide(file,"cc"));
 
     if(insertFile(file, file->p_fin,"cc2"));

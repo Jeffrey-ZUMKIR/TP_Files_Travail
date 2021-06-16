@@ -20,7 +20,7 @@ File * init(){
 }
 
 //Insertion élément dans file vide
-int insertFileVide(File* file, SDL_Surface* p_surface){
+int insertFileVide(File* file, SDL_Texture* p_texture){
     Element* element=NULL;
     element=(Element*)malloc(sizeof(*element));
 
@@ -28,7 +28,7 @@ int insertFileVide(File* file, SDL_Surface* p_surface){
         return 0;
     }
 
-    element->p_surface=p_surface;
+    element->p_texture=p_texture;
     element->p_suivant=NULL;
 
     file->p_debut=element;
@@ -39,7 +39,7 @@ int insertFileVide(File* file, SDL_Surface* p_surface){
 }
 
 //Insertion élément dans file
-int insertFile(File* file, Element* courant, SDL_Surface* p_surface){
+int insertFile(File* file, Element* courant, SDL_Texture* p_texture){
     Element* element=NULL;
     element=(Element*)malloc(sizeof(*element));
 
@@ -47,7 +47,7 @@ int insertFile(File* file, Element* courant, SDL_Surface* p_surface){
         return 0;
     }
 
-    element->p_surface=p_surface;
+    element->p_texture=p_texture;
     element->p_suivant=NULL;
 
     courant->p_suivant=element;
@@ -85,37 +85,28 @@ void afficheFile(File* file,SDL_Rect rectSource,SDL_Rect rectDest,SDL_Renderer* 
     Element* courant;
     courant= file->p_debut;
 
-    SDL_Texture* pTexture;
-
     int i=0;
     int j=0;
 
     while(courant!=NULL){
-        if(!courant->p_surface){
-            SDL_Log("Unable to set surface: %s", SDL_GetError());
+        //Si pas de reference
+        if(!courant->p_texture){
+            SDL_Log("Unable to set texture: %s", SDL_GetError());
         }else{
-            pTexture=SDL_CreateTextureFromSurface(pRenderer,courant->p_surface);
+            rectSource.x=0;
+            rectSource.y=0;
+            rectSource.w=160;
+            rectSource.h=160;
 
+            rectDest.x=50*j;
+            rectDest.y=50*i;
+            rectDest.w=rectSource.w;
+            rectDest.h=rectSource.h;
 
-            //Si pas de reference
-            if(!pTexture){
-                SDL_Log("Unable to set texture: %s", SDL_GetError());
-            }else{
-                rectSource.x=0;
-                rectSource.y=0;
-                rectSource.w=160;
-                rectSource.h=160;
-
-                rectDest.x=50*j;
-                rectDest.y=50*i;
-                rectDest.w=rectSource.w;
-                rectDest.h=rectSource.h;
-
-                SDL_RenderCopy(pRenderer,pTexture,&rectSource,&rectDest);
-            }
-            i+=2;
+            SDL_RenderCopy(pRenderer,courant->p_texture,&rectSource,&rectDest);
         }
-        courant=courant->p_suivant;
+        i+=2;
+    courant=courant->p_suivant;
     }
 }
 
