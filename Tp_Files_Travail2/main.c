@@ -41,7 +41,10 @@ int main(int argc, char *argv[])
     SDL_Event events;
     SDL_bool isOpen = SDL_TRUE;
 
-    File* file=init();
+
+    File* file;
+    file = (File*)malloc(sizeof(*file));
+    file=init();
 
     if(pRenderer){
         //Set Color
@@ -62,8 +65,8 @@ int main(int argc, char *argv[])
         pTexture=SDL_CreateTextureFromSurface(pRenderer,pSurface);
         if(insertFile(file,file->p_fin,pTexture));
     }
-
-     while (isOpen)
+    int doOnce = 1;
+    while (isOpen)
     {
          while (SDL_PollEvent(&events))
         {
@@ -76,16 +79,23 @@ int main(int argc, char *argv[])
         }
 
         //Affiche les images
-        afficheFile(file,rectSource,rectDest,pRenderer);
-
-        //Update render
-        SDL_RenderPresent(pRenderer);
-
+        if(doOnce==1){
+            afficheFile(file,rectSource,rectDest,pRenderer);
+        }
+        doOnce=0;
     }
 
+    //Liberer memoire
     if(destructFile(file));
 
-    //SDL_Delay(1000);
+    free(file);
+
+    if(pSurface){
+        free(pSurface);
+    }
+    if(pTexture){
+        free(pTexture);
+    }
     if(pRenderer){
         SDL_DestroyRenderer(pRenderer);
     }

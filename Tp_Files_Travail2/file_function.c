@@ -44,9 +44,6 @@ int insertFile(File* file, Element* courant, SDL_Texture* p_texture){
         file->n_taille++;
     }
 
-
-
-
     return 1;
 
 }
@@ -96,6 +93,10 @@ void afficheFile(File* file,SDL_Rect rectSource,SDL_Rect rectDest,SDL_Renderer* 
             rectDest.h=rectSource.h;
 
             SDL_RenderCopy(pRenderer,courant->p_texture,&rectSource,&rectDest);
+
+            //Update render
+            SDL_RenderPresent(pRenderer);
+            SDL_Delay(1000);
         }
         i+=2;
         courant=courant->p_suivant;
