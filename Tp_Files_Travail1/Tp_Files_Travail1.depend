@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1623833615 source:d:\home\documents\ludus f2\algo\nouveau dossier\tp_files_travail1\main.c
+	<stdio.h>
+	<stdlib.h>
+	"define.h"
+
+1623833598 d:\home\documents\ludus f2\algo\nouveau dossier\tp_files_travail1\define.h
+
+1623786295 source:d:\home\documents\ludus f2\algo\nouveau dossier\tp_files_travail1\define.h
+
+1623833598 source:d:\home\documents\ludus f2\algo\nouveau dossier\tp_files_travail1\file_function.c
+	<stdio.h>
+	<stdlib.h>
+	"define.h"
+
