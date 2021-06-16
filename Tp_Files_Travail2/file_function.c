@@ -106,7 +106,7 @@ void afficheFile(File* file,SDL_Rect rectSource,SDL_Rect rectDest,SDL_Renderer* 
             SDL_RenderCopy(pRenderer,courant->p_texture,&rectSource,&rectDest);
         }
         i+=2;
-    courant=courant->p_suivant;
+        courant=courant->p_suivant;
     }
 }
 
