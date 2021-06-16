@@ -14,9 +14,6 @@ int main(int argc, char *argv[])
     SDL_Surface *pSurface;
     SDL_Texture *pTexture;
 
-    int i=0;
-    int j=0;
-
     if(SDL_Init(SDL_INIT_EVERYTHING)!=0){
         SDL_Log("Unbale to initialize SDL: %s", SDL_GetError());
         return 1;
@@ -44,6 +41,28 @@ int main(int argc, char *argv[])
     SDL_Event events;
     SDL_bool isOpen = SDL_TRUE;
 
+    File* file=init();
+
+    if(pRenderer){
+        //Set Color
+        SDL_SetRenderDrawColor(pRenderer,205,92,92,SDL_ALPHA_OPAQUE);
+        //Clear Render
+        SDL_RenderClear(pRenderer);
+
+        //Ajout image dans la liste
+        pSurface=IMG_Load("./assets/Cyberdrunk pnj.png");
+        pTexture=SDL_CreateTextureFromSurface(pRenderer,pSurface);
+        if(insertFile(file,file->p_fin,pTexture));
+
+        pSurface=IMG_Load("./assets/Cyberdrunk pnj dwerk.png");
+        pTexture=SDL_CreateTextureFromSurface(pRenderer,pSurface);
+        if(insertFile(file,file->p_fin,pTexture));
+
+        pSurface=IMG_Load("./assets/Cyberdrunk pnj 5.png");
+        pTexture=SDL_CreateTextureFromSurface(pRenderer,pSurface);
+        if(insertFile(file,file->p_fin,pTexture));
+    }
+
      while (isOpen)
     {
          while (SDL_PollEvent(&events))
@@ -56,35 +75,15 @@ int main(int argc, char *argv[])
             }
         }
 
-        if(pRenderer){
-            //Set Color
-            SDL_SetRenderDrawColor(pRenderer,205,92,92,SDL_ALPHA_OPAQUE);
-            //Clear Render
-            SDL_RenderClear(pRenderer);
+        //Affiche les images
+        afficheFile(file,rectSource,rectDest,pRenderer);
 
-            File* file=init();
+        //Update render
+        SDL_RenderPresent(pRenderer);
 
-            //Ajout image dans la liste
-            pSurface=IMG_Load("./assets/Cyberdrunk pnj.png");
-            pTexture=SDL_CreateTextureFromSurface(pRenderer,pSurface);
-            if(insertFileVide(file,pTexture));
-
-            pSurface=IMG_Load("./assets/Cyberdrunk pnj dwerk.png");
-            pTexture=SDL_CreateTextureFromSurface(pRenderer,pSurface);
-            if(insertFile(file,file->p_fin,pTexture));
-
-            pSurface=IMG_Load("./assets/Cyberdrunk pnj 5.png");
-            pTexture=SDL_CreateTextureFromSurface(pRenderer,pSurface);
-            if(insertFile(file,file->p_fin,pTexture));
-
-            //Affiche les images
-            afficheFile(file,rectSource,rectDest,pRenderer);
-
-
-            //Update render
-            SDL_RenderPresent(pRenderer);
-        }
     }
+
+    if(destructFile(file));
 
     //SDL_Delay(1000);
     if(pRenderer){

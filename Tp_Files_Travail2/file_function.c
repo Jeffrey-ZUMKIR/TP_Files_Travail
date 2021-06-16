@@ -19,25 +19,6 @@ File * init(){
     return my_file;
 }
 
-//Insertion élément dans file vide
-int insertFileVide(File* file, SDL_Texture* p_texture){
-    Element* element=NULL;
-    element=(Element*)malloc(sizeof(*element));
-
-    if(element==NULL){
-        return 0;
-    }
-
-    element->p_texture=p_texture;
-    element->p_suivant=NULL;
-
-    file->p_debut=element;
-    file->p_fin=element;
-    file->n_taille++;
-    return 1;
-
-}
-
 //Insertion élément dans file
 int insertFile(File* file, Element* courant, SDL_Texture* p_texture){
     Element* element=NULL;
@@ -47,12 +28,23 @@ int insertFile(File* file, Element* courant, SDL_Texture* p_texture){
         return 0;
     }
 
-    element->p_texture=p_texture;
-    element->p_suivant=NULL;
+    if(file->n_taille==0){
+        element->p_texture=p_texture;
+        element->p_suivant=NULL;
 
-    courant->p_suivant=element;
-    file->p_fin=element;
-    file->n_taille++;
+        file->p_debut=element;
+        file->p_fin=element;
+        file->n_taille++;
+    }else{
+        element->p_texture=p_texture;
+        element->p_suivant=NULL;
+
+        courant->p_suivant=element;
+        file->p_fin=element;
+        file->n_taille++;
+    }
+
+
 
 
     return 1;

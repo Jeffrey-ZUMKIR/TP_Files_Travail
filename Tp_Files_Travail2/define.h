@@ -16,7 +16,6 @@ typedef struct File{
 }File;
 
 extern File * init();
-extern int insertFileVide(File* file, SDL_Texture* p_texture);
 extern int insertFile(File* file, Element* courant, SDL_Texture* p_texture);
 extern int supElement(File* file);
 extern void afficheFile(File* file,SDL_Rect rectSource,SDL_Rect rectDest,SDL_Renderer* pRenderer);
